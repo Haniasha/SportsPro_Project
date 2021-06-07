@@ -1,0 +1,38 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@*  Customer Manager page
+    List of all customers in the database
+*@
+
+@model IEnumerable<Customer>
+
+@{ ViewBag.Title = "Customer Manager - "; }
+
+<h2>Customer Manager </h2>
+<a asp-controller="Customer" asp-action="Add" class="btn bg-dark text-light">Add Customer</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+<tr>
+    <td>@customer.FullName</td>
+    <td>@customer.Email</td>
+    <td>@customer.City</td>
+    <td>
+        <a asp-controller="Customer" class="btn bg-dark text-light" asp-action="Edit"
+           asp-route-id="@customer.CustomerID">Edit</a>
+        <a asp-controller="Customer" class="btn bg-dark text-light" asp-action="Delete"
+           asp-route-id="@customer.CustomerID">Delete</a>
+    </td>
+</tr>}
+    </tbody>
+</table>

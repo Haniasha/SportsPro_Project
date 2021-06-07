@@ -1,0 +1,135 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@{
+    string controller =
+        ViewContext.RouteData.Values["controller"].ToString();
+    string action = ViewContext.RouteData.Values["action"].ToString();
+
+    // use current controller or area to determine if tab is active
+    var current = ViewContext.RouteData.Values["area"]?.ToString() ??
+ViewContext.RouteData.Values["controller"]?.ToString();
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SportsPro</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+ 
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">SportsPro</a>
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav mr-auto">
+
+                    <ul class="navbar-nav mr-auto">
+                        @*nav item links for Home, Customers, Technician, Product, Incidents*@
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="">
+                                <span class="fas fa-home"></span>&nbsp;Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index1" asp-controller="Product" asp-area="">
+                                <span class="fas fa-home"></span>&nbsp;Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index2" asp-controller="Technician" asp-area="">
+                                <span class="fas fa-home"></span>&nbsp;Technicians
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index3" asp-controller="Customer" asp-area="">
+                                <span class="fas fa-home"></span>&nbsp;Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index4" asp-controller="Incident" asp-area="">
+                                <span class="fas fa-home"></span>&nbsp;Incidents
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="GetCustomer" asp-controller="Registration" asp-area="">
+                                <span class="fas fa-home"></span>&nbsp;Registrations
+                            </a>
+                        </li>
+
+                        <!-- Login buttons and links -->
+                        @using Microsoft.AspNetCore.Identity
+                        @inject SignInManager<User> signInManager
+
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            // signed-in user - Log Out button and username
+                            <li class="nav-item">
+                                <form method="post" asp-action="LogOut" asp-controller="Account"
+                                      asp-area="">
+                                    <input type="submit" value="Log Out"
+                                           class="btn btn-outline-light" />
+                                    <label class="text-light">Welcome</label>
+                                    <span class="text-light">@User.Identity.Name</span>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            
+
+                            // anonymous user - Register link and Log In button
+
+                            <li class="nav-item mr-auto @Nav.Active("Register", action)">
+                                <a asp-action="Register" asp-controller="Account"
+                                   asp-area="" class="nav-link">
+                                    <span class="fas fa-edit"></span>&nbsp;Register
+                                </a>
+                            </li>
+                            <li class="nav-item mr-auto">
+                                <a asp-action="Login" asp-controller="Account"
+                                   asp-area="" class="btn btn-outline-light">Log In</a>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+                <div class="navbar-nav navbar-right">
+                    <a class="nav-link" asp-action="About" asp-controller="Home" asp-area="">
+                        <span class="fas fa-home"></span>&nbsp;About
+                    </a>
+                </div>
+            </nav>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-5">
+            <my-temp-message />
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">&copy; @DateTime.Now.Year - SportsPro</div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

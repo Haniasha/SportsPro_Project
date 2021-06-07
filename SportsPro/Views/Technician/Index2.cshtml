@@ -1,0 +1,40 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@*  Technician Manager page
+    List of all technicians in the database
+*@
+
+@model List<Technician>
+
+@{ ViewBag.Title = "Technician Manager - "; }
+
+<h2>Technician Manager </h2>
+<a asp-controller="Technician" asp-action="Add" class="btn bg-dark text-light">Add Technician</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var technician in Model)
+        {
+<tr>
+    <td>@technician.Name</td>
+    <td>@technician.Email</td>
+    <td>@technician.Phone</td>
+    <td>
+        <a asp-controller="Technician" class="btn bg-dark text-light" asp-action="Edit"
+           asp-route-id="@technician.TechnicianID">Edit</a>
+        <a asp-controller="Technician" class="btn bg-dark text-light" asp-action="Delete"
+           asp-route-id="@technician.TechnicianID">Delete</a>
+    </td>
+</tr>
+}
+    </tbody>
+</table>
+

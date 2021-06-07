@@ -1,0 +1,70 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@*  Incident Manager page
+    List of all incidents in the database
+    related to the customer
+*@
+
+@model IncidentMgrListViewModelInc
+
+@{ ViewBag.Title = "Incident Manager - "; }
+
+<h2>Incident Manager </h2>
+
+
+<div class="list-group">
+    @foreach (string activfltr in Model.Filterarray)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index4" asp-controller="Incident" asp-area=""
+                               asp-route-id="@activfltr">
+                                <span class="list-group-item bg-light text-dark
+                            @Model.CheckActiveFilter(activfltr)">
+                                    @activfltr
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>}
+
+    <div>
+        <br /><br />
+        <a asp-controller="Incident" asp-action="Add" class="btn bg-dark text-light col-4">Add Incident</a>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Date Opened</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var incident in Model.Incidents)
+                {
+                    <tr>
+                        <td>@incident.Title</td>
+                        <td>@incident.Customer.FullName</td>
+                        <td>@incident.Product.Name</td>
+                        <td>@incident.DateOpened</td>
+                        <td>
+                            <a asp-controller="Incident" class="btn bg-dark text-light" asp-action="Edit"
+                               asp-route-id="@incident.IncidentID">Edit</a>
+                            <a asp-controller="Incident" class="btn bg-dark text-light" asp-action="Delete"
+                               asp-route-id="@incident.IncidentID">Delete</a>
+                        </td>
+                    </tr>
+}
+            </tbody>
+        </table>
+    </div>
+</div>

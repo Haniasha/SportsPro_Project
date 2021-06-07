@@ -1,0 +1,51 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@*  Incident by Technician Page
+    Lists all incidents by current technician
+*@
+
+
+@model IncidentMgrListViewModelInc
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<h2>Technician: @ViewBag.Name </h2>
+<h2>@ViewBag.Title</h2>
+
+<a asp-action="Get" class="btn bg-dark text-light">Switch Technician</a>
+
+@if (Model.Incidents.Count() != 0)
+{
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Date Opened</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Incident incdt in Model.Incidents)
+        {
+<tr>
+    <td>@incdt.Title</td>
+    <td>@incdt.Customer.FullName</td>
+    <td>@incdt.Product.Name</td>
+    <td>@incdt.DateOpened</td>
+
+    <td>
+        <a asp-controller="Technician" class="btn bg-dark text-light" asp-action="EditCurrInc"
+           asp-route-id="@incdt.IncidentID">Edit</a>
+    </td>
+</tr>
+}
+
+    </tbody>
+</table>
+
+                <div>@ViewBag.http</div>}

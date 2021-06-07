@@ -1,0 +1,156 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@*  Add/Edit a customer. Validate the fields
+    Redirect to Customer Manager Page
+    once Added/Updated/Cancelled
+*@
+
+@model Customer
+
+@{ string title = ViewBag.Action + " Customer";
+    ViewBag.Title = title; }
+
+<partial name="_ValidationScriptsPartial" />
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="FirstName">First Name</label>
+                <input asp-for="FirstName" class="form-control">
+            </div>
+            <div class="col col-md-5">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="LastName">Last Name</label>
+                <input asp-for="LastName" class="form-control">
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="Address">Address</label>
+                <input asp-for="Address" class="form-control">
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="City">City</label>
+                <input asp-for="City" class="form-control">
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="State">State</label>
+                <input asp-for="State" class="form-control">
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="PostalCode">Postal Code</label>
+                <input asp-for="PostalCode" class="form-control">
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="CountryID">Country</label>
+                <select asp-for="CountryID"
+                        asp-items="@(new SelectList(ViewBag.Countries,
+                                        "CountryID", "Name"))"
+                        class="form-control">
+                    <option value="">Select a country...</option>
+                </select>
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control">
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            @* @if (TempData.Keys.Contains("message"))
+                {
+                <h4 class="bg-info text-center text-white p-2">
+                    @TempData["message"]
+                </h4>}  *@
+        </div>
+    </div>
+
+    <div class="form-group container">
+        <div class="row">
+            <div class="col-md-7">
+                <label asp-for="Phone">Phone</label>
+                <input asp-for="Phone" class="form-control">
+            </div>
+            <div class="col-sm-5">
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <input type="hidden" asp-for="CustomerID" />
+
+    <button type="submit" class="btn bg-dark text-light">Save</button>
+
+    @if (ViewBag.Action == "Add" || ViewBag.Action == "Edit")
+    {
+        <a asp-controller="Customer" asp-action="Index3"
+           class="btn bg-dark text-light">Cancel</a>}
+
+
+</form>

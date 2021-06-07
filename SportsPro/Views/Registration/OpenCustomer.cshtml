@@ -1,0 +1,64 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@*  Incident by Technician Page
+    Lists all incidents by current technician
+*@
+
+
+@model CustomerViewModel
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<h2>Customer: @ViewBag.Name </h2>
+<h2>@ViewBag.Title </h2>
+<h2>Registrations</h2>
+
+
+@if (Model.Registrations.Count != 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Product</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Registration prod in Model.Registrations)
+            {
+                <tr>
+                    <td>@prod.Product.Name</td>
+
+                    <td>
+                        <a class="btn bg-dark text-light" asp-action="Delete"
+                           asp-route-productid="@prod.ProductID"
+                           asp-route-customerid="@prod.CustomerID">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+}
+
+<form asp-action="OpenCustomer" method="post">
+    <div class="form-group">
+        <label asp-for="ProductID">Product</label>
+        <select asp-for="ProductID"
+                asp-items="@(new SelectList(Model.Products,
+                        "ProductID", "Name"))"
+                class="form-control">
+            <option value="">Select a product ...</option>
+        </select>
+        <input type="hidden" asp-for="CustomerID" />
+    </div>
+
+    <button type="submit" class="btn bg-dark text-light">Register</button>
+
+
+    <div>@ViewBag.http</div>
+</form>

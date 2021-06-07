@@ -1,0 +1,48 @@
+﻿@*Authors: Cecilia Santiago, David McDonald, Ehsan Jalali, Hanieh Shahrokhi
+    Workshop 5
+    Date May 28, 2021*@
+
+@{
+    string controller =
+        ViewContext.RouteData.Values["controller"].ToString();
+    string action =
+        ViewContext.RouteData.Values["action"].ToString();
+}
+@*  Links to all Management pages
+*@
+
+@{
+    ViewData["Title"] = "Technicians";
+}
+
+<h1>SportsPro Technical Support</h1>
+<p>Sports management software for the sports enthusiast</p>
+
+<h1>Admin</h1>
+<div class="list-group">
+    <a class="nav-item nav-link bg-dark text-light @(controller == "Product" ? "active" : "")"
+       asp-controller="Product" asp-action="Index1"
+       class="list-group-item">Manage Products</a>
+    <a class="nav-item nav-link bg-dark text-light @(controller == "Technician" ? "active" : "")"
+       asp-controller="Technician" asp-action="Index2"
+       class="list-group-item">Manage Technicians</a>
+    <a class="nav-item nav-link bg-dark text-light @(controller == "Customer" ? "active" : "")"
+       asp-controller="Customer" asp-action="Index3"
+       class="list-group-item">Manage Customers</a>
+    <a class="nav-item nav-link bg-dark text-light @(controller == "Incident" ? "active" : "")"
+       asp-controller="Incident" asp-action="Index4"
+       class="list-group-item">Manage Incidents</a>
+    <a class="nav-item nav-link bg-dark text-light @(controller == "Registration" ? "active" : "")"
+       asp-controller="Registration" asp-action="GetCustomer"
+       class="list-group-item">Manage Registrations</a>
+</div>
+
+<h1>Technicians</h1>
+<div class="list-group">
+    <a asp-controller="Technician" asp-action="Get"
+       class="list-group-item bg-dark text-light">Update Incident</a>
+</div>
+
+<div class="container">
+    <p class="text-danger">This website was built with ASP .NET CORE MVC for a class project at SAIT.  ***It is not a real website***</p>
+</div>
